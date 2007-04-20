@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Roamflow Plug-in
+Bundle-SymbolicName: net.roamstudio.roamflow; singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: net.roamstudio.roamflow.RoamflowActivator
+Bundle-Vendor: Roamstudio Members
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true
