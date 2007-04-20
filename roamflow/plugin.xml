@@ -19,5 +19,12 @@
             id="net.roamstudio.roamflow.perspective">
       </perspective>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="net.roamstudio.roamflow.view.NavigatorView"
+            icon="icons/logo_16.gif"
+            id="net.roamstudio.roamflow.navigatorView"
+            name="Navigator"/>
+   </extension>
 </plugin>

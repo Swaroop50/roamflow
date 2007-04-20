@@ -7,5 +7,12 @@ Bundle-Activator: net.roamstudio.roamflow.RoamflowActivator
 Bundle-Vendor: Roamstudio Members
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.ui,
+ org.eclipse.ui.ide
 Eclipse-LazyStart: true
+Bundle-ClassPath: lib/dom4j/dom4j-1.6.1.jar,
+ lib/dom4j/jaxen-1.1.jar,
+ .
