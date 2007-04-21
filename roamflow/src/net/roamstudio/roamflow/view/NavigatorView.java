@@ -67,52 +67,9 @@ public class NavigatorView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		viewer = new TreeViewer(parent, SWT.NONE);
 		viewer.setContentProvider(new ResourcesContentProvider());
-		viewer.setLabelProvider(new LabelProvider() {
-			public String getText(Object element) {
-				if (element instanceof IProject) {
-					IProject project = (IProject) element;
-					return project.getName();
-				} else if (element instanceof IFolder) {
-					IFolder folder = (IFolder) element;
-					return folder.getName();
-				} else {
-					return super.getText(element);
-				}
-			}
+		viewer.setLabelProvider(new ResourcesLabelProvider());
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
-			 */
-			@Override
-			public Image getImage(Object element) {
-				return ImagesUtil.get("project");
-			}
-		});
-
-		viewer.addFilter(new ViewerFilter() {
-			@Override
-			public boolean select(Viewer viewer, Object parentElement,
-					Object element) {
-				IResource resource = (IResource) element;
-				if (resource instanceof IFile) {
-					IFile file = (IFile) resource;
-					if ("processdefinition.xml".equals(file.getName())) {
-						return false;
-					} else if ("gpd.xml".equals(file.getName())) {
-						return false;
-					} else if ("graph.gif".equals(file.getName())) {
-						return false;
-					} else if ("forms.xml".equals(file.getName())) {
-						return false;
-					}
-					return true;
-				}
-				return true;
-			}
-
-		});
+		viewer.addFilter(new ResourcesViewerFilter());
 		viewer.setInput(new Object());
 
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
@@ -164,7 +121,7 @@ public class NavigatorView extends ViewPart {
 	protected void fillContextMenu(IMenuManager manager) {
 
 		manager.add(new Action("&New Project", ImagesUtil
-				.getDescriptor("logo16")) { //$NON-NLS-1$	
+				.getDescriptor("project")) { //$NON-NLS-1$	
 					public void run() {
 						NewProjectWizard wizard = new NewProjectWizard();
 						wizard.init(PlatformUI.getWorkbench(), null);
@@ -179,7 +136,7 @@ public class NavigatorView extends ViewPart {
 				.getSelection();
 
 		manager.add(new Action("&New Process", ImagesUtil
-				.getDescriptor("newprocess_16")) { //$NON-NLS-1$	
+				.getDescriptor("process")) { //$NON-NLS-1$	
 					public void run() {
 						NewProcessWizard wizard = new NewProcessWizard();
 						wizard.init(PlatformUI.getWorkbench(), selection);

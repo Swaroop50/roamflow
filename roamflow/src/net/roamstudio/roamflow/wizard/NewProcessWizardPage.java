@@ -124,7 +124,7 @@ public class NewProcessWizardPage extends WizardPage {
 				container = (IContainer)object;
 			}
 		}
-		return container.getName() + "/processes";
+		return container.getName() + "/src/process";
 	}
 	
 	public IFolder getProcessSourceFolder(){

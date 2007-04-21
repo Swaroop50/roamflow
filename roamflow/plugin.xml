@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Roamflow Perspective"
+            class="net.roamstudio.roamflow.RoamflowPerspective"
+            id="net.roamstudio.roamflow.perspective">
+      </perspective>
+   </extension>
 
    <extension
          id="application"
@@ -12,19 +20,39 @@
       </application>
    </extension>
    <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            name="Roamflow Perspective"
-            class="net.roamstudio.roamflow.RoamflowPerspective"
-            id="net.roamstudio.roamflow.perspective">
-      </perspective>
-   </extension>
-   <extension
          point="org.eclipse.ui.views">
       <view
             class="net.roamstudio.roamflow.view.NavigatorView"
-            icon="icons/logo_16.gif"
+            icon="icons/navigator.gif"
             id="net.roamstudio.roamflow.navigatorView"
             name="Navigator"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.activities">
+      <activity
+            id="com.neusoft.talentbase.wfdesigner.activities"
+            name="hide activity"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*search.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*run.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*debug.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*team.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*compare.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*replace.*"/>
+      <activityPatternBinding
+            activityId="com.neusoft.talentbase.wfdesigner.activities"
+            pattern="org.eclipse.*/.*goto.*"/>
    </extension>
 </plugin>
