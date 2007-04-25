@@ -160,7 +160,7 @@ public class NavigatorView extends ViewPart {
 						IDE.openEditor(PlatformUI.getWorkbench()
 								.getActiveWorkbenchWindow().getActivePage(),
 								processDefinitionFile,
-								"net.roamstudio.roamflow.editor.DesignerEditor");
+								"net.roamstudio.roamflow.editor.ProcessEditor");
 					} catch (PartInitException e) {
 						e.printStackTrace();
 					}
@@ -170,7 +170,7 @@ public class NavigatorView extends ViewPart {
 					IDE.openEditor(PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getActivePage(),
 							(IFile) element,
-							"net.roamstudio.roamflow.editor.DesignerEditor");
+							"net.roamstudio.roamflow.editor.ProcessEditor");
 				} catch (PartInitException e) {
 					e.printStackTrace();
 				}

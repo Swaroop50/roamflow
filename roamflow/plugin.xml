@@ -19,6 +19,7 @@
          </run>
       </application>
    </extension>
+   
    <extension
          point="org.eclipse.ui.views">
       <view
@@ -26,6 +27,17 @@
             icon="icons/navigator.gif"
             id="net.roamstudio.roamflow.navigatorView"
             name="Navigator"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.roamstudio.roamflow.editor.ProcessEditor"
+            default="false"
+            extensions="xml"
+            icon="icons/logo_16.gif"
+            id="net.roamstudio.roamflow.editor.ProcessEditor"
+            name="Roamflow Designer Editor"/>
    </extension>
    
    <extension
