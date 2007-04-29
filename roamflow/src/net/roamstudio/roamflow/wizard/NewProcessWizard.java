@@ -49,8 +49,6 @@ public class NewProcessWizard extends Wizard implements INewWizard {
 			processDefinitionFile.create(createInitialProcessDefinition(), true, null);
 			IFile gpdFile = folder.getFile("gpd.xml");
 			gpdFile.create(createInitialGpdInfo(), true, null);
-//			IDE.openEditor(getActivePage(), gpdFile);
-//			BasicNewResourceWizard.selectAndReveal(gpdFile, getActiveWorkbenchWindow());
 			return true;
 		} catch (CoreException e) {
 			e.printStackTrace();
@@ -86,7 +84,7 @@ public class NewProcessWizard extends Wizard implements INewWizard {
 		buffer.append("\n");
 		buffer.append(
 				"<process-definition\n" +
-				"  xmlns=\"" + JbpmLibraryConfigurationLoader.getJbpmSchemaNameSpace() + "\"\n" +
+				"  xmlns=\"" + JbpmLibraryConfigurationLoader.getInstance().getJbpmSchemaNameSpace() + "\"\n" +
 				"  name=\"" + parName + "\">\n" +	
 				"</process-definition>");	
 		byte[] b = null;

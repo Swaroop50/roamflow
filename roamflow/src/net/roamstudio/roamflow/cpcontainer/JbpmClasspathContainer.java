@@ -17,16 +17,11 @@
 package net.roamstudio.roamflow.cpcontainer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import net.roamstudio.roamflow.loader.JbpmLibraryConfigurationLoader;
 
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.XPath;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -56,7 +51,7 @@ public class JbpmClasspathContainer implements IClasspathContainer {
 	}
 
 	public String getDescription() {
-		String jbpmName = JbpmLibraryConfigurationLoader.getJbpmName();
+		String jbpmName = JbpmLibraryConfigurationLoader.getInstance().getJbpmName();
 		return "jBPM Library [" + jbpmName + "]";
 	}
 
@@ -69,7 +64,7 @@ public class JbpmClasspathContainer implements IClasspathContainer {
 	}
 
 	private IClasspathEntry[] createJbpmLibraryEntries(IJavaProject project) {
-		Map jarNames = getJarNames();
+		Map jarNames = JbpmLibraryConfigurationLoader.getInstance().getJarNames();
 		ArrayList entries = new ArrayList();
 		Iterator iterator = jarNames.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -80,26 +75,5 @@ public class JbpmClasspathContainer implements IClasspathContainer {
 		}
 		return (IClasspathEntry[]) entries.toArray(new IClasspathEntry[entries
 				.size()]);
-	}
-
-	private Map getJarNames() {
-		String libPath = "/";
-		HashMap result = new HashMap();
-		Document document = JbpmLibraryConfigurationLoader.getDocument(JbpmLibraryConfigurationLoader.CONFIG_PATH);
-		XPath xpath = document.createXPath("/jbpm-version-info/classpathentry");
-		List list = xpath.selectNodes(document);
-		IPath path = new Path(libPath);
-		for (int i = 0; i < list.size(); i++) {
-			Element entry = (Element) list.get(i);
-			IPath sourcePath = null;
-			if (entry.attribute("src") != null) {
-				sourcePath = path.append((String) entry
-						.attribute("src").getData());
-			}
-			result.put(path.append((String) entry.attribute("path")
-					.getData()), sourcePath);
-		}
-
-		return result;
 	}
 }

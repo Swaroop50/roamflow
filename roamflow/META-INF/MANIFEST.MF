@@ -16,8 +16,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.sse.ui,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.jface.text,
- org.eclipse.gef
+ org.eclipse.gef,
+ org.apache.xerces
 Eclipse-LazyStart: true
-Bundle-ClassPath: lib/dom4j/dom4j-1.6.1.jar,
- lib/dom4j/jaxen-1.1.jar,
+Bundle-ClassPath: lib/castor/castor-1.1.1-xml.jar,
+ lib/jboss/commons-logging.jar,
  .

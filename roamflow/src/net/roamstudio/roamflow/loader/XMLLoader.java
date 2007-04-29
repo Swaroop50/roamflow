@@ -16,62 +16,103 @@
  */
 package net.roamstudio.roamflow.loader;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 
+import net.roamstudio.roamflow.log.RoamflowLog;
 import net.roamstudio.roamflow.util.ResourcesUtil;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
-import org.eclipse.core.resources.IFile;
+import org.exolab.castor.mapping.Mapping;
+import org.exolab.castor.mapping.MappingException;
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.Unmarshaller;
+import org.exolab.castor.xml.ValidationException;
 
 /**
  * XML文件的读取器.
+ * 
  * @author chinakite zhang
- *
+ * 
  */
 public abstract class XMLLoader {
+
+	private Mapping mapping;
+
+	private String xmlfile;
+
 	/**
-	 * 取得jBPM相关库文件的配置表. Get libraries list of jBPM.
+	 * 初始化Castor操作XML文件时使用的mapping.
 	 * 
-	 * @return org.dom4j.Document
+	 * @param mapfile
+	 * @return
 	 */
-	public static Document getDocument(String path) {
-		InputStream is;
+	private void initMapping(String mapfile) {
 		try {
-			is = ResourcesUtil.getStream(path);
-			Document document = new SAXReader().read(is);
-			return document;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			mapping = new Mapping();
+			mapping.loadMapping(mapfile);
 		} catch (IOException e) {
+			RoamflowLog.logError("Unable to init XML file mapping.", e);
 			e.printStackTrace();
-		} catch (DocumentException e) {
+		} catch (MappingException e) {
+			RoamflowLog.logError("Unable to init XML file mapping.", e);
 			e.printStackTrace();
 		}
-		return null;
 	}
-	
-	/**
-	 * 取得jBPM相关库文件的配置表. Get libraries list of jBPM.
-	 * 
-	 * @return org.dom4j.Document
-	 */
-	private Document getDocument(IFile file) {
-//		InputStream is;
-//		try {
-//			is = ResourcesUtil.getStreamByExtendResource(file.getFullPath().);
-//			Document document = new SAXReader().read(is);
-//			return document;
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (DocumentException e) {
-//			e.printStackTrace();
-//		}
+
+	private void initXmlfile(String xmlfile) {
+		this.xmlfile = xmlfile;
+	}
+
+	public void init(String mapfile, String xmlfile) {
+		if (mapfile != null) {
+			mapfile = mapfile.trim();
+			if (mapfile.trim().indexOf(":") == -1) {
+				if (mapfile.startsWith("/")) {
+					mapfile = mapfile.substring(1);
+				}
+				mapfile = ResourcesUtil.toNativeURL(ResourcesUtil.getResource(mapfile)).getPath();
+			}
+		}
+		if (xmlfile != null) {
+			xmlfile = xmlfile.trim();
+			if (xmlfile.indexOf(":") == -1) {
+				if (xmlfile.startsWith("/")) {
+					xmlfile = xmlfile.substring(1);
+				}
+				xmlfile = ResourcesUtil.toNativeURL(ResourcesUtil.getResource(xmlfile)).getPath();
+			}
+		}
+		initXmlfile(xmlfile);
+		initMapping(mapfile);
+	}
+
+	public Object load(Class clazz) {
+		Object obj;
+		Unmarshaller un = new Unmarshaller(clazz);
+		try {
+			un.setMapping(mapping);
+			FileReader in = new FileReader(xmlfile);
+			obj = un.unmarshal(in);
+			in.close();
+			return obj;
+		} catch (MappingException e) {
+			RoamflowLog.logError("Unable to load object from XML file.", e);
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			RoamflowLog.logError("Unable to load object from XML file.", e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			RoamflowLog.logError("Unable to load object from XML file.", e);
+			e.printStackTrace();
+		} catch (MarshalException e) {
+			RoamflowLog.logError("Unable to load object from XML file.", e);
+			e.printStackTrace();
+		} catch (ValidationException e) {
+			RoamflowLog.logError("Unable to load object from XML file.", e);
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 }

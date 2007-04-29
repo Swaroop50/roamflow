@@ -16,7 +16,14 @@
  */
 package net.roamstudio.roamflow.loader;
 
-import org.dom4j.Document;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.roamstudio.roamflow.cpcontainer.ClasspathEntry;
+import net.roamstudio.roamflow.cpcontainer.JbpmLibrary;
+
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 
 /**
  * @author chinakite zhang
@@ -24,7 +31,24 @@ import org.dom4j.Document;
  */
 public class JbpmLibraryConfigurationLoader extends XMLLoader {
 	
-	public static final String CONFIG_PATH = "net/roamstudio/roamflow/resources/jbpm-lib.xml";
+	public static String xmlfile = "net/roamstudio/roamflow/resources/jbpm-lib.xml";
+	public static String mapfile = "net/roamstudio/roamflow/resources/jbpm-lib-mapping.xml";
+	
+	private JbpmLibrary jbpmLib;
+	
+	private static JbpmLibraryConfigurationLoader jbpmLibraryConfigurationLoader;
+	
+	public static JbpmLibraryConfigurationLoader getInstance(){
+		if(jbpmLibraryConfigurationLoader == null){
+			jbpmLibraryConfigurationLoader = new JbpmLibraryConfigurationLoader();
+		}	
+		return jbpmLibraryConfigurationLoader;
+	}
+	
+	public JbpmLibraryConfigurationLoader(){
+		init(mapfile, xmlfile);
+		jbpmLib = (JbpmLibrary)load(JbpmLibrary.class);
+	}
 	
 	/**
 	 * 取得配置文件中的jBPM名称(包括版本号). Get jBPM name(included version) from configuration
@@ -32,13 +56,26 @@ public class JbpmLibraryConfigurationLoader extends XMLLoader {
 	 * 
 	 * @return jBPM名称
 	 */
-	public static String getJbpmName() {
-		Document document = getDocument(CONFIG_PATH);
-		return document.getRootElement().attributeValue("name");
+	public String getJbpmName() {
+		return jbpmLib.getName();
 	}
 	
-	public static String getJbpmSchemaNameSpace(){
-		Document document = getDocument(CONFIG_PATH);
-		return document.getRootElement().attributeValue("namespace");
+	public String getJbpmSchemaNameSpace(){
+		return jbpmLib.getName();
 	}
+	
+	public Map getJarNames() {
+		HashMap result = new HashMap();
+		IPath path = new Path("/");
+		
+		for(ClasspathEntry classpathEntry : jbpmLib.getClasspathEntrys()){
+			IPath srcPath = null;
+			if(classpathEntry.getSrc() != null)
+				srcPath = path.append(classpathEntry.getSrc());
+			result.put(path.append(classpathEntry.getPath()), srcPath);
+		}
+
+		return result;
+	}
+	
 }

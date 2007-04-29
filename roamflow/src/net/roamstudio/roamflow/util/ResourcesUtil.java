@@ -22,13 +22,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+import net.roamstudio.roamflow.log.RoamflowLog;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.FileLocator;
 
 /**
  * @author chinakite zhang
  *
  */
 public class ResourcesUtil {
+
 	/**
 	 * 加载Java类。 使用全限定类名
 	 * 
@@ -208,5 +212,15 @@ public class ResourcesUtil {
 	 */
 	public static URL getResource(String resource) {
 		return ResourcesUtil.getClassLoader().getResource(resource);
+	}
+	
+	public static URL toNativeURL(URL url){
+		try {
+			return FileLocator.resolve(url);
+		} catch (IOException e) {
+			RoamflowLog.logError(e);
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	<description>a map file for our new template system</description>
+	<class name="net.roamstudio.roamflow.cpcontainer.ClasspathEntry">
+		<map-to xml="classpathentry" />
+		<field name="path" type="string">
+			<bind-xml name="path" node="attribute" />
+		</field>
+		<field name="src" type="string" />
+	</class>
+
+	<class name="net.roamstudio.roamflow.cpcontainer.JbpmLibrary">
+		<map-to xml="jbpm-version-info" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="namespace" type="string">
+			<bind-xml name="namespace" node="attribute" />
+		</field>
+		<field name="classpathEntrys"
+			type="net.roamstudio.roamflow.cpcontainer.ClasspathEntry"
+			collection="collection" />
+	</class>
+</mapping>
