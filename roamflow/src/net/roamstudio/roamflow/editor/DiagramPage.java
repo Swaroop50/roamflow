@@ -19,6 +19,7 @@ package net.roamstudio.roamflow.editor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -65,10 +66,20 @@ public class DiagramPage extends EditorPart {
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
-		// TODO Auto-generated method stub
-
+		initSite(site);
+		initInput(input);
+	}
+	
+	private void initSite(IEditorSite site) {
+		setSite(site);
 	}
 
+	private void initInput(IEditorInput input) throws PartInitException {
+//		IEditorInput gpdInput = DesignerContentProvider.INSTANCE.getGpdEditorInput(input);
+//		setInput(gpdInput);
+//		DesignerContentProvider.INSTANCE.addGraphicalInfo(editor.getProcessDefinition(), gpdInput);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.EditorPart#isDirty()
 	 */

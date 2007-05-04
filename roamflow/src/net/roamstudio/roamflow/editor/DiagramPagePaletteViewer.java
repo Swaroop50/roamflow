@@ -17,6 +17,12 @@
 package net.roamstudio.roamflow.editor;
 
 import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.palette.MarqueeToolEntry;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.SelectionToolEntry;
+import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.swt.custom.SashForm;
 
@@ -43,6 +49,25 @@ public class DiagramPagePaletteViewer extends PaletteViewer {
 	private void initEditDomain(SashForm parent) {
 		EditDomain editDomain = editor.getEditDomain();
 		editDomain.setPaletteViewer(this);
-		editDomain.setPaletteRoot(new DiagramPagePaletteRoot(editor));
+		editDomain.setPaletteRoot(initPaletteRoot());
+	}
+	
+	private PaletteRoot initPaletteRoot(){
+		PaletteRoot root = new PaletteRoot();
+		PaletteGroup toolGroup = new PaletteGroup("Tools");
+		
+		ToolEntry tool = new SelectionToolEntry();
+		toolGroup.add(tool);
+		root.setDefaultEntry(tool);
+		
+		tool = new MarqueeToolEntry();
+		toolGroup.add(tool);
+		
+		PaletteDrawer drawer = new PaletteDrawer("Workflow");
+		
+		root.add(toolGroup);
+		root.add(drawer);
+		
+		return root;
 	}
 }

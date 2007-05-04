@@ -81,4 +81,11 @@ public class ProcessEditor extends XMLMultiPageEditorPart {
 		super.init(site, fileInput);
 		initEditDomain();
 	}
+
+	/**
+	 * @return the diagramPage
+	 */
+	public DiagramPage getDiagramPage() {
+		return diagramPage;
+	}
 }

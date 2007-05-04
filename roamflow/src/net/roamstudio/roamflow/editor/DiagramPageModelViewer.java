@@ -16,7 +16,17 @@
  */
 package net.roamstudio.roamflow.editor;
 
+import java.util.Iterator;
+
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartSite;
 
 /**
  * @author chinakite zhang
@@ -24,11 +34,53 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
  */
 public class DiagramPageModelViewer extends ScrollingGraphicalViewer {
 	private ProcessEditor editor;
+	private ISelectionListener selectionListener;
 	
 	public DiagramPageModelViewer(ProcessEditor editor) {
 		this.editor = editor;
 //		setKeyHandler(new GraphicalViewerKeyHandler(this));
 //		setRootEditPart(new ScalableFreeformRootEditPart());
 //		prepareGrid();
+	}
+	
+	public void createControl(SashForm parent) {
+		initControl(parent);
+//		initEditDomain(parent);
+		initSite(parent);
+//		initEditPartFactory(parent);
+//		initContents(parent);
+//		initPropertySheetPage(parent);
+	}
+	
+	private void initControl(SashForm parent) {
+		super.createControl(parent);
+		getControl().setBackground(ColorConstants.white);
+//		ContextMenuProvider provider = new DesignerContextMenuProvider(this, editor.getActionRegistry());
+//		setContextMenu(provider);
+//		editor.getSite().registerContextMenu("org.jbpm.ui.editor.modelviewer.context", provider, this);
+	}
+
+	private void initSite(SashForm parent) {
+		IWorkbenchPartSite site = editor.getDiagramPage().getSite();
+		site.setSelectionProvider(this);
+		selectionListener = new ISelectionListener() {
+			public void selectionChanged(IWorkbenchPart part, ISelection sel) {
+				changeSelection(part, sel);
+			}
+		};
+		site.getPage().addPostSelectionListener(selectionListener);
+	}
+	
+	private void changeSelection(IWorkbenchPart part, ISelection sel) {
+		if (!(sel instanceof IStructuredSelection)) return;
+		IStructuredSelection structuredSelection = (IStructuredSelection)sel;
+		Iterator iterator = structuredSelection.iterator();
+		while (iterator.hasNext()) {
+			Object selectedObject = iterator.next();
+			if (selectedObject == null || !(selectedObject instanceof EditPart)) continue;
+			EditPart editPart = (EditPart)selectedObject;
+			EditPart objectToSelect = (EditPart)getEditPartRegistry().get(editPart.getModel());
+			if (objectToSelect != null) select(objectToSelect);
+		}
 	}
 }
