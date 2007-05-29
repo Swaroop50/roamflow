@@ -14,19 +14,15 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, email to roamstudio@163.com
  */
-package net.roamstudio.roamflow.model;
+package net.roamstudio.roamflow.model.gpd;
 
 /**
  * @author chinakite zhang
  *
  */
-public class ProcessDefinition {
+public class Transition {
 	private String name;
 
-	private StartState startState;
-	
-	private EndState endState;
-	
 	/**
 	 * @return the name
 	 */
@@ -39,37 +35,5 @@ public class ProcessDefinition {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * @return the startState
-	 */
-	public StartState getStartState() {
-		return startState;
-	}
-
-	/**
-	 * @param startState the startState to set
-	 */
-	public void setStartState(StartState startState) {
-		this.startState = startState;
-	}	
-	
-	public void addStartState(StartState startState){
-		this.startState = startState;
-	}
-
-	/**
-	 * @return the endState
-	 */
-	public EndState getEndState() {
-		return endState;
-	}
-
-	/**
-	 * @param endState the endState to set
-	 */
-	public void setEndState(EndState endState) {
-		this.endState = endState;
 	}
 }

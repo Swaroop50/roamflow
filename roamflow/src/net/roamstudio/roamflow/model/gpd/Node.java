@@ -14,62 +14,76 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, email to roamstudio@163.com
  */
-package net.roamstudio.roamflow.model;
+package net.roamstudio.roamflow.model.gpd;
 
 /**
  * @author chinakite zhang
  *
  */
-public class ProcessDefinition {
+public class Node {
 	private String name;
-
-	private StartState startState;
-	
-	private EndState endState;
-	
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	/**
-	 * @return the startState
+	 * @return the width
 	 */
-	public StartState getStartState() {
-		return startState;
+	public int getWidth() {
+		return width;
 	}
-
 	/**
-	 * @param startState the startState to set
+	 * @param width the width to set
 	 */
-	public void setStartState(StartState startState) {
-		this.startState = startState;
-	}	
-	
-	public void addStartState(StartState startState){
-		this.startState = startState;
+	public void setWidth(int width) {
+		this.width = width;
 	}
-
 	/**
-	 * @return the endState
+	 * @return the x
 	 */
-	public EndState getEndState() {
-		return endState;
+	public int getX() {
+		return x;
 	}
-
 	/**
-	 * @param endState the endState to set
+	 * @param x the x to set
 	 */
-	public void setEndState(EndState endState) {
-		this.endState = endState;
+	public void setX(int x) {
+		this.x = x;
+	}
+	/**
+	 * @return the y
+	 */
+	public int getY() {
+		return y;
+	}
+	/**
+	 * @param y the y to set
+	 */
+	public void setY(int y) {
+		this.y = y;
 	}
 }

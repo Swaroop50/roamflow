@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	<description>a map file for our new template system</description>
+	<class name="net.roamstudio.roamflow.model.StartState">
+		<map-to xml="start-state" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.EndState">
+		<map-to xml="end-state" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.ProcessDefinition">
+		<map-to xml="process-definition" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="startState" 
+		       type="net.roamstudio.roamflow.model.StartState">
+		    <bind-xml name="start-state"/>
+		</field>
+		<field name="endState" 
+		       type="net.roamstudio.roamflow.model.EndState">
+		    <bind-xml name="end-state"/>
+		</field>
+	</class>
+</mapping>

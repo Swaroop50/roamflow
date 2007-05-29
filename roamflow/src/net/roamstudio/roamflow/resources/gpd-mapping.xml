@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	<description>GPD file mapping.</description>
+	<class name="net.roamstudio.roamflow.model.gpd.ProcessDiagram">
+		<map-to xml="process-diagram"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="width" type="integer">
+			<bind-xml name="width" node="attribute" />
+		</field>
+		<field name="height" type="integer">
+			<bind-xml name="height" node="attribute" />
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.gpd.Node">
+		<map-to xml="node"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="x" type="integer">
+		    <bind-xml name="x" node="attribute"/>
+		</field>
+		<field name="y" type="integer">
+		    <bind-xml name="y" node="attribute"/>
+		</field>
+		<field name="width" type="integer">
+		    <bind-xml name="width" node="attribute"/>
+		</field>
+		<field name="height" type="integer">
+		    <bind-xml name="height" node="attribute"/>
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.gpd.Transition">
+		<map-to xml="transition"/>
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.gpd.Label">
+		<map-to xml="label"/>
+		<field name="x" type="integer">
+		    <bind-xml name="x" node="attribute"/>
+		</field>
+		<field name="y" type="integer">
+		    <bind-xml name="y" node="attribute"/>
+		</field>
+	</class>
+	<class name="net.roamstudio.roamflow.model.gpd.BendPoint">
+		<map-to xml="bendpoint"/>
+		<field name="w1" type="integer">
+		    <bind-xml name="w1" node="attribute"/>
+		</field>
+		<field name="h1" type="integer">
+		    <bind-xml name="h1" node="attribute"/>
+		</field>
+		<field name="w2" type="integer">
+		    <bind-xml name="w1" node="attribute"/>
+		</field>
+		<field name="h2" type="integer">
+		    <bind-xml name="h1" node="attribute"/>
+		</field>
+	</class>
+</mapping>
