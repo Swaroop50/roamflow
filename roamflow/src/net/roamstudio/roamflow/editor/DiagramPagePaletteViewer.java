@@ -16,13 +16,17 @@
  */
 package net.roamstudio.roamflow.editor;
 
+import net.roamstudio.roamflow.model.StartState;
+
 import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.swt.custom.SashForm;
 
@@ -56,14 +60,23 @@ public class DiagramPagePaletteViewer extends PaletteViewer {
 		PaletteRoot root = new PaletteRoot();
 		PaletteGroup toolGroup = new PaletteGroup("Tools");
 		
-		ToolEntry tool = new SelectionToolEntry();
-		toolGroup.add(tool);
-		root.setDefaultEntry(tool);
+		ToolEntry selection = new SelectionToolEntry();
+		toolGroup.add(selection);
+		root.setDefaultEntry(selection);
 		
-		tool = new MarqueeToolEntry();
-		toolGroup.add(tool);
+		MarqueeToolEntry marquee = new MarqueeToolEntry();
+		toolGroup.add(marquee);
 		
 		PaletteDrawer drawer = new PaletteDrawer("Workflow");
+		
+		CreationToolEntry startStateNode = new CreationToolEntry(
+				"Start State",
+				"Create a Start State Node",
+				new SimpleFactory(StartState.class),
+				null,
+				null
+				);
+		drawer.add(startStateNode);
 		
 		root.add(toolGroup);
 		root.add(drawer);

@@ -16,22 +16,22 @@
  */
 package net.roamstudio.roamflow.loader;
 
-import org.eclipse.core.runtime.IPath;
+import net.roamstudio.roamflow.model.gpd.ProcessDiagram;
 
-import net.roamstudio.roamflow.model.ProcessDefinition;
+import org.eclipse.core.runtime.IPath;
 
 /**
  * @author chinakite zhang
  *
  */
-public class ProcessDefinitionLoader extends XMLLoader {
-	public static String mapfile = "net/roamstudio/roamflow/resources/jpdl-mapping.xml";
+public class ProcessDiagramLoader extends XMLLoader {
+	public static String mapfile = "net/roamstudio/roamflow/resources/gpd-mapping.xml";
 	
-	public ProcessDefinitionLoader(IPath path){
+	public ProcessDiagramLoader(IPath path){
 		init(mapfile, path.toString());
 	}
 	
-	public ProcessDefinition getProcessDefinition(){
-		return (ProcessDefinition)load(ProcessDefinition.class);
+	public ProcessDiagram getProcessDiagram(){
+		return (ProcessDiagram)load(ProcessDiagram.class);
 	}
 }

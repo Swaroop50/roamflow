@@ -18,8 +18,13 @@ package net.roamstudio.roamflow.editor;
 
 import java.util.Iterator;
 
+import net.roamstudio.roamflow.editpart.GraphicEditPartFactory;
+
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -38,20 +43,30 @@ public class DiagramPageModelViewer extends ScrollingGraphicalViewer {
 	
 	public DiagramPageModelViewer(ProcessEditor editor) {
 		this.editor = editor;
-//		setKeyHandler(new GraphicalViewerKeyHandler(this));
-//		setRootEditPart(new ScalableFreeformRootEditPart());
+		setKeyHandler(new GraphicalViewerKeyHandler(this));
+		setRootEditPart(new ScalableRootEditPart());
+		setEditPartFactory(new GraphicEditPartFactory());
 //		prepareGrid();
 	}
 	
 	public void createControl(SashForm parent) {
 		initControl(parent);
-//		initEditDomain(parent);
+		initEditDomain(parent);
 		initSite(parent);
 //		initEditPartFactory(parent);
-//		initContents(parent);
+		initContents(parent);
 //		initPropertySheetPage(parent);
 	}
 	
+	private void initEditDomain(SashForm parent) {
+		EditDomain editDomain = editor.getEditDomain();
+		editDomain.addViewer(this);
+	}
+
+	private void initContents(SashForm parent) {
+		setContents(editor.getProcessDefinition());
+	}
+
 	private void initControl(SashForm parent) {
 		super.createControl(parent);
 		getControl().setBackground(ColorConstants.white);

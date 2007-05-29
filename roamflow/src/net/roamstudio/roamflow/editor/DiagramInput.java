@@ -14,24 +14,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, email to roamstudio@163.com
  */
-package net.roamstudio.roamflow.loader;
-
-import org.eclipse.core.runtime.IPath;
-
-import net.roamstudio.roamflow.model.ProcessDefinition;
+package net.roamstudio.roamflow.editor;
 
 /**
  * @author chinakite zhang
  *
  */
-public class ProcessDefinitionLoader extends XMLLoader {
-	public static String mapfile = "net/roamstudio/roamflow/resources/jpdl-mapping.xml";
-	
-	public ProcessDefinitionLoader(IPath path){
-		init(mapfile, path.toString());
-	}
-	
-	public ProcessDefinition getProcessDefinition(){
-		return (ProcessDefinition)load(ProcessDefinition.class);
-	}
+public class DiagramInput {
+
 }

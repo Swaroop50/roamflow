@@ -16,6 +16,9 @@
  */
 package net.roamstudio.roamflow.editor;
 
+import net.roamstudio.roamflow.loader.ProcessDefinitionLoader;
+import net.roamstudio.roamflow.model.ProcessDefinition;
+
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.ui.IEditorInput;
@@ -31,6 +34,7 @@ import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
  */
 public class ProcessEditor extends XMLMultiPageEditorPart {
 	private DiagramPage diagramPage;
+	private ProcessDefinition processDefinition;
 
 	private StructuredTextEditor sourcePage;
 
@@ -41,6 +45,10 @@ public class ProcessEditor extends XMLMultiPageEditorPart {
 		for (int i = 0; i < pageCount; i++) {
 			if (getEditor(i) instanceof StructuredTextEditor) {
 				sourcePage = (StructuredTextEditor) getEditor(i);
+				
+				ProcessDefinitionLoader pdl = new ProcessDefinitionLoader(
+						((FileEditorInput)getEditorInput()).getPath());
+				processDefinition = pdl.getProcessDefinition();
 			}
 		}
 	}
@@ -87,5 +95,19 @@ public class ProcessEditor extends XMLMultiPageEditorPart {
 	 */
 	public DiagramPage getDiagramPage() {
 		return diagramPage;
+	}
+
+	/**
+	 * @return the processDefinition
+	 */
+	public ProcessDefinition getProcessDefinition() {
+		return processDefinition;
+	}
+
+	/**
+	 * @param processDefinition the processDefinition to set
+	 */
+	public void setProcessDefinition(ProcessDefinition processDefinition) {
+		this.processDefinition = processDefinition;
 	}
 }

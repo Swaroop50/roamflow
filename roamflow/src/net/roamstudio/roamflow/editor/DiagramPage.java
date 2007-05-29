@@ -16,15 +16,19 @@
  */
 package net.roamstudio.roamflow.editor;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * @author chinakite zhang
@@ -67,7 +71,7 @@ public class DiagramPage extends EditorPart {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		initSite(site);
-		initInput(input);
+//		initInput(input);
 	}
 	
 	private void initSite(IEditorSite site) {
@@ -75,9 +79,18 @@ public class DiagramPage extends EditorPart {
 	}
 
 	private void initInput(IEditorInput input) throws PartInitException {
+//		setInput(getGpdFile(input));
 //		IEditorInput gpdInput = DesignerContentProvider.INSTANCE.getGpdEditorInput(input);
 //		setInput(gpdInput);
 //		DesignerContentProvider.INSTANCE.addGraphicalInfo(editor.getProcessDefinition(), gpdInput);
+	}
+	
+	private IEditorInput getGpdFile(IEditorInput input){
+		IFile processDefinitionFile = ((IFileEditorInput)input).getFile();
+		IProject project = processDefinitionFile.getProject();
+		IPath processDefinitionPath = project.getProjectRelativePath();
+		IPath gpdPath = processDefinitionPath.removeLastSegments(1).append("gpd.xml");
+		return new FileEditorInput(project.getFile(gpdPath));
 	}
 	
 	/* (non-Javadoc)
